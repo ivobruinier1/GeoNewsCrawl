@@ -102,7 +102,7 @@ def normalize_token(token):
 def is_valid_location_qid(qid, language='nl'):
     url = "https://www.wikidata.org/w/api.php"
     params = {"action": "wbgetentities", "format": "json", "ids": qid, "props": "labels|claims", "languages": language}
-    HEADERS = {"User-Agent": "CoordinateRetriever/1.0 (i.b.a.bruinier@student.rug.nl)"}
+    HEADERS = {"User-Agent": "CoordinateRetriever/1.0 (contact@example.com)"}
     try:
         response = requests.get(url, params=params, headers=HEADERS, timeout=10)
         response.raise_for_status()
@@ -124,7 +124,7 @@ def is_valid_location_qid(qid, language='nl'):
 def get_coordinates(qid):
     url = "https://www.wikidata.org/w/api.php"
     params = {"action": "wbgetentities", "format": "json", "ids": qid, "props": "claims"}
-    HEADERS = {"User-Agent": "CoordinateRetriever/1.0 (i.b.a.bruinier@student.rug.nl)"}
+    HEADERS = {"User-Agent": "CoordinateRetriever/1.0 (contact@example.com)"}
     try:
         response = requests.get(url, params=params, headers=HEADERS, timeout=10)
         response.raise_for_status()
@@ -146,7 +146,7 @@ def search_wikidata_qid(entity, cache, language='nl', limit=5):
         return cache[entity]
     url = "https://www.wikidata.org/w/api.php"
     params = {"action": "wbsearchentities", "format": "json", "search": entity, "language": language, "limit": limit}
-    HEADERS = {"User-Agent": "CoordinateRetriever/1.0 (i.b.a.bruinier@student.rug.nl)"}
+    HEADERS = {"User-Agent": "CoordinateRetriever/1.0 (contact@example.com)"}
     try:
         response = requests.get(url, params=params, headers=HEADERS, timeout=10)
         response.raise_for_status()
