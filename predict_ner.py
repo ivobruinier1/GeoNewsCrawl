@@ -9,12 +9,12 @@ from transformers import AutoModelForTokenClassification, Trainer, AutoTokenizer
 import torch.nn.functional as F
 
 # Using the pre-trained model without training
-model_name = "golden_model/checkpoint-4674"
+model_name = "model_name_here"
 output_directory = model_name.split('/')[-1]
 print(f"Using model: {model_name}")
 
 # Step 1: Read the TSV file from the specified path'  # Ensure the path is correct (TSV format)
-test_path = 'newscrawl/cc_val.tsv'
+predict_file = 'file_name_here'
 
 
 label_list = ['O', 'B-PER', 'I-PER', 'B-ORG', 'I-ORG', 'B-LOC', 'I-LOC', 'B-MISC', 'I-MISC']
@@ -74,7 +74,7 @@ def convert_data(file_path, max_tokens=510):
 
     return sentences
 
-eval_sentences = convert_data(test_path)
+eval_sentences = convert_data(predict_file)
 
 # Define a ClassLabel object to use to map string labels to integers.
 classmap = ClassLabel(num_classes=9, names=['O', 'B-PER', 'I-PER', 'B-ORG', 'I-ORG', 'B-LOC', 'I-LOC', 'B-MISC', 'I-MISC'])
@@ -82,7 +82,7 @@ classmap = ClassLabel(num_classes=9, names=['O', 'B-PER', 'I-PER', 'B-ORG', 'I-O
 # Convert to Hugging Face Datasets
 ds_eval = Dataset.from_pandas(pd.DataFrame(data=eval_sentences))
 
-print(f"Labeling set: {test_path} \n {ds_eval}")
+print(f"Labeling set: {predict_file} \n {ds_eval}")
 
 # Initialize model and tokenizer (using the pre-trained model)
 model = AutoModelForTokenClassification.from_pretrained(model_name, ignore_mismatched_sizes=True,
